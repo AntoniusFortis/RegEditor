@@ -1,0 +1,66 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="RegEditor" GeneratedClassName="Theme">
+  <Profiles />
+  <Settings>
+    <Setting Name="DefaultButtonBackColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">246, 246, 246</Value>
+    </Setting>
+    <Setting Name="DefaultButtonForeColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">White</Value>
+    </Setting>
+    <Setting Name="FormBackColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">246, 246, 246</Value>
+    </Setting>
+    <Setting Name="DataGridViewBackColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">246, 246, 246</Value>
+    </Setting>
+    <Setting Name="DataGridViewRowsBackColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">229, 229, 229</Value>
+    </Setting>
+    <Setting Name="DataGridViewRowsForeColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Black</Value>
+    </Setting>
+    <Setting Name="datagrview_rgb_grid" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">246, 246, 246</Value>
+    </Setting>
+    <Setting Name="combox_rgb_bg" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">246, 246, 246</Value>
+    </Setting>
+    <Setting Name="TextBoxStyle" Type="MetroFramework.MetroColorStyle" Scope="User">
+      <Value Profile="(Default)">Silver</Value>
+    </Setting>
+    <Setting Name="chkbox_style" Type="MetroFramework.MetroColorStyle" Scope="User">
+      <Value Profile="(Default)">Silver</Value>
+    </Setting>
+    <Setting Name="TextBoxBackColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">246, 246, 246</Value>
+    </Setting>
+    <Setting Name="TextBoxForeColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Black</Value>
+    </Setting>
+    <Setting Name="ComboboxForeColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">DodgerBlue</Value>
+    </Setting>
+    <Setting Name="MenuStripBackColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">246, 246, 246</Value>
+    </Setting>
+    <Setting Name="MenuStripForeColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Black</Value>
+    </Setting>
+    <Setting Name="RootsTreeViewBackColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">246, 246, 246</Value>
+    </Setting>
+    <Setting Name="RootsTreeViewForeColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Black</Value>
+    </Setting>
+    <Setting Name="CancelButtonBackColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">White</Value>
+    </Setting>
+    <Setting Name="CancelButtonForeColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Black</Value>
+    </Setting>
+    <Setting Name="combox_style" Type="MetroFramework.MetroColorStyle" Scope="User">
+      <Value Profile="(Default)">Silver</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
