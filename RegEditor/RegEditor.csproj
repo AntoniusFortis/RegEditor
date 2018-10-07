@@ -166,11 +166,11 @@
     <Compile Include="Формы\SearchOptions.Designer.cs">
       <DependentUpon>SearchOptions.cs</DependentUpon>
     </Compile>
-    <Compile Include="Формы\Values.cs">
+    <Compile Include="Формы\Keys.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Формы\Values.Designer.cs">
-      <DependentUpon>Values.cs</DependentUpon>
+    <Compile Include="Формы\Keys.Designer.cs">
+      <DependentUpon>Keys.cs</DependentUpon>
     </Compile>
     <Compile Include="Формы\Main.cs">
       <SubType>Form</SubType>
@@ -203,8 +203,8 @@
     <EmbeddedResource Include="Формы\SearchOptions.resx">
       <DependentUpon>SearchOptions.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Формы\Values.resx">
-      <DependentUpon>Values.cs</DependentUpon>
+    <EmbeddedResource Include="Формы\Keys.resx">
+      <DependentUpon>Keys.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Формы\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>

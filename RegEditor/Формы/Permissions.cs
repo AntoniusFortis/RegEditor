@@ -1,105 +1,68 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Security.Principal;
 using System.Windows.Forms;
+using Microsoft.Win32;
 
 namespace RegEditor
 {
-    public partial class PermissionsForm : Form
+    public partial class Permissions : Form
     {
-        public PermissionsForm()
-        {
-            InitializeComponent();
-        }
-        void PermissionsForm_Load(object sender, EventArgs e)
-        {
-            PathRootTbox.Text = CurrentNode.Node.FullPath;
-            GetAccess();
-        }
-        void PermissionsForm_MouseDown(object sender, MouseEventArgs e)
-        {
-            Restyler.MouseCapture(Handle);
-        }
-        void GetAccess()
+        public Permissions() => InitializeComponent();
+
+        private void GetAccess()
         {
             var listusers = new List<string>();
             var keyAccessControl = CurrentNode.Regkey.GetAccessControl();
-            for (int i = 0; i < keyAccessControl.GetAccessRules(true, true, typeof(NTAccount)).Count; i++)
-                listusers.Add(keyAccessControl.GetAccessRules(true, true, typeof(NTAccount))[i]?.IdentityReference.Value);
-            object[] distinctArray = listusers.Distinct().ToArray();
-            SelectUserComboBox.Items.AddRange(distinctArray);
+
+            var rules = keyAccessControl.GetAccessRules(true, true, typeof(NTAccount));
+
+            foreach (AuthorizationRule rule in rules)
+            {
+                listusers.Add(rule.IdentityReference.Value);
+            }
+
+            var disctincted = listusers.Distinct();
+
+            foreach (var user in disctincted)
+            {
+                SelectUserComboBox.Items.Add(user);
+            }
+
             SelectUserComboBox.SelectedIndex = 0;
         }
-        void SelectUserComboBox_SelectedIndexChanged(object sender, EventArgs e)
+
+        private void SelectUserComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            RegistrySecurity keyAccessControl = CurrentNode.Regkey.GetAccessControl();
-            foreach (RegistryAccessRule Rule in keyAccessControl.GetAccessRules(true, true, typeof(NTAccount)))
+            var keyAccessControl = CurrentNode.Regkey.GetAccessControl();
+
+            foreach (RegistryAccessRule rule in keyAccessControl.GetAccessRules(true, true, typeof(NTAccount)))
             {
-                if (!Rule.IdentityReference.Value.Equals(SelectUserComboBox.SelectedItem))
+                if (!rule.IdentityReference.Value.Equals(SelectUserComboBox.SelectedItem))
                     continue;
-                AccessControlTypeComboBox.SelectedIndex = (int)Rule.AccessControlType;
-                RegistryRightComboBox.SelectedItem = GetDescriptionForRights(Rule.RegistryRights);
-                var InHeritanceFlags = (int)Rule.InheritanceFlags;
-                if (InHeritanceFlags < 3)
-                    InHeritanceFlagsComboBox.SelectedIndex = InHeritanceFlags;
-                if (Rule.IsInherited)
-                    IsInheritedComboBox.SelectedIndex = 0;
-                else
-                    IsInheritedComboBox.SelectedIndex = 1;
+
+                AccessControlTypeComboBox.SelectedIndex = (int)rule.AccessControlType;
+                RegistryRightComboBox.SelectedItem = GetDescriptionForRights(rule.RegistryRights);
+                var inHeritanceFlags = (int)rule.InheritanceFlags;
+
+                if (inHeritanceFlags < 3)
+                    InHeritanceFlagsComboBox.SelectedIndex = inHeritanceFlags;
+
+                IsInheritedComboBox.SelectedIndex = rule.IsInherited ? 0 : 1;
                 break;
             }
         }
-        void EditButton_Click(object sender, EventArgs e)
-        {
-            RegistryRights[] ArrayRights =
-            {
-                RegistryRights.ChangePermissions, RegistryRights.CreateSubKey, RegistryRights.Delete,
-                RegistryRights.EnumerateSubKeys, RegistryRights.FullControl, RegistryRights.Notify,
-                RegistryRights.QueryValues, RegistryRights.ReadKey, RegistryRights.ReadPermissions,
-                RegistryRights.SetValue, RegistryRights.TakeOwnership, RegistryRights.WriteKey
-            };
-            InheritanceFlags[] InheritanceFlags =
-            {
-                System.Security.AccessControl.InheritanceFlags.None,
-                System.Security.AccessControl.InheritanceFlags.ContainerInherit,
-                System.Security.AccessControl.InheritanceFlags.ObjectInherit
-            };
-            PropagationFlags[] PropagationFlag =
-            {
-                PropagationFlags.None,
-                PropagationFlags.NoPropagateInherit,
-                PropagationFlags.InheritOnly
-            };
-            AccessControlType[] _AccessControlType =
-            {
-                AccessControlType.Allow,
-                AccessControlType.Deny
-            };
-            var key = (RegistryKey)CurrentNode.Node.Parent.Tag;
-            key = key.OpenSubKey(CurrentNode.Node.Text, true);
 
-            var newAccessRule = new RegistryAccessRule(SelectUserComboBox.Text,
-                            ArrayRights[RegistryRightComboBox.SelectedIndex],
-                            InheritanceFlags[InHeritanceFlagsComboBox.SelectedIndex],
-                            PropagationFlag[IsInheritedComboBox.SelectedIndex],
-                            _AccessControlType[AccessControlTypeComboBox.SelectedIndex]);
-
-            var regSec = new RegistrySecurity();
-            regSec.AddAccessRule(newAccessRule);
-            key?.SetAccessControl(regSec);
-        }
-        void CloseButton_Click(object sender, EventArgs e) => Close();
-
-        void DescrTip_Draw(object sender, DrawToolTipEventArgs e)
+        private void DescrTip_Draw(object sender, DrawToolTipEventArgs e)
         {
             e.DrawBackground();
             e.DrawBorder();
             e.DrawText();
         }
-        string GetDescriptionForRights(RegistryRights rights)
+
+        private string GetDescriptionForRights(RegistryRights rights)
         {
             string rightsInfo;
             switch (rights)
@@ -132,6 +95,58 @@ namespace RegEditor
                     rightsInfo = "Полный доступ"; break;
             }
             return rightsInfo;
+        }
+
+        private void Permissions_MouseDown(object sender, MouseEventArgs e) => Restyler.MouseCapture(Handle);
+
+        private void Permissions_Load(object sender, EventArgs e)
+        {
+            Restyler.WindowsReStyle(Handle);
+
+            PathRootTbox.Text = CurrentNode.Node.FullPath;
+            GetAccess();
+        }
+
+        private void CloseBtn_Click(object sender, EventArgs e) => Close();
+
+        private void AcceptBtn_Click(object sender, EventArgs e)
+        {
+            RegistryRights[] arrayRights =
+            {
+                RegistryRights.ChangePermissions, RegistryRights.CreateSubKey, RegistryRights.Delete,
+                RegistryRights.EnumerateSubKeys, RegistryRights.FullControl, RegistryRights.Notify,
+                RegistryRights.QueryValues, RegistryRights.ReadKey, RegistryRights.ReadPermissions,
+                RegistryRights.SetValue, RegistryRights.TakeOwnership, RegistryRights.WriteKey
+            };
+            InheritanceFlags[] inheritanceFlags =
+            {
+                InheritanceFlags.None,
+                InheritanceFlags.ContainerInherit,
+                InheritanceFlags.ObjectInherit
+            };
+            PropagationFlags[] propagationFlag =
+            {
+                PropagationFlags.None,
+                PropagationFlags.NoPropagateInherit,
+                PropagationFlags.InheritOnly
+            };
+            AccessControlType[] accessControlType =
+            {
+                AccessControlType.Allow,
+                AccessControlType.Deny
+            };
+            var key = (RegistryKey)CurrentNode.Node.Parent.Tag;
+            key = key.OpenSubKey(CurrentNode.Node.Text, true);
+
+            var newAccessRule = new RegistryAccessRule(SelectUserComboBox.Text,
+                arrayRights[RegistryRightComboBox.SelectedIndex],
+                inheritanceFlags[InHeritanceFlagsComboBox.SelectedIndex],
+                propagationFlag[IsInheritedComboBox.SelectedIndex],
+                accessControlType[AccessControlTypeComboBox.SelectedIndex]);
+
+            var regSec = new RegistrySecurity();
+            regSec.AddAccessRule(newAccessRule);
+            key?.SetAccessControl(regSec);
         }
     }
 }

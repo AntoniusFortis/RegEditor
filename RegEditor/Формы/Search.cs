@@ -30,7 +30,7 @@ namespace RegEditor
         {
             switch (e.KeyCode)
             {
-                case Keys.Enter:
+                case System.Windows.Forms.Keys.Enter:
                     {
                         StartSearchButton.PerformClick();
                         break;

@@ -38,7 +38,7 @@
             this.AuthorLabel.AutoSize = true;
             this.AuthorLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.AuthorLabel.ForeColor = System.Drawing.Color.White;
-            this.AuthorLabel.Location = new System.Drawing.Point(88, 153);
+            this.AuthorLabel.Location = new System.Drawing.Point(88, 151);
             this.AuthorLabel.Name = "AuthorLabel";
             this.AuthorLabel.Size = new System.Drawing.Size(146, 21);
             this.AuthorLabel.TabIndex = 2;
@@ -74,14 +74,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.ClientSize = new System.Drawing.Size(331, 199);
-            this.ControlBox = false;
+            this.ClientSize = new System.Drawing.Size(331, 189);
             this.Controls.Add(this.VersionLabel);
             this.Controls.Add(this.NameAppLabel);
             this.Controls.Add(this.AuthorLabel);
             this.DoubleBuffered = true;
-            this.MaximumSize = new System.Drawing.Size(347, 215);
-            this.MinimumSize = new System.Drawing.Size(347, 215);
+            this.MaximumSize = new System.Drawing.Size(347, 228);
+            this.MinimumSize = new System.Drawing.Size(347, 228);
             this.Name = "AboutProduct";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;

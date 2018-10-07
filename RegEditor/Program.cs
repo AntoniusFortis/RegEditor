@@ -13,7 +13,7 @@ namespace RegEditor
         [STAThread]
         static void Main()
         {
-            WindowsPrincipal pricipal = new WindowsPrincipal(WindowsIdentity.GetCurrent());
+            var pricipal = new WindowsPrincipal(WindowsIdentity.GetCurrent());
             bool hasAdministrativeRight = pricipal.IsInRole(WindowsBuiltInRole.Administrator);
 
             if (hasAdministrativeRight == false)

@@ -1,6 +1,6 @@
 ﻿namespace RegEditor
 {
-    partial class PermissionsForm
+    partial class Permissions
     {
         /// <summary>
         /// Required designer variable.
@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             this.SelectUserComboBox = new MetroFramework.Controls.MetroComboBox();
-            this.CloseButton = new System.Windows.Forms.Button();
-            this.EditButton = new System.Windows.Forms.Button();
+            this.CloseBtn = new System.Windows.Forms.Button();
+            this.AcceptBtn = new System.Windows.Forms.Button();
             this.IsInheritedComboBox = new MetroFramework.Controls.MetroComboBox();
             this.InHeritanceFlagsComboBox = new MetroFramework.Controls.MetroComboBox();
             this.AccessControlTypeComboBox = new MetroFramework.Controls.MetroComboBox();
@@ -58,34 +58,34 @@
             this.SelectUserComboBox.UseStyleColors = true;
             this.SelectUserComboBox.SelectedIndexChanged += new System.EventHandler(this.SelectUserComboBox_SelectedIndexChanged);
             // 
-            // CloseButton
+            // CloseBtn
             // 
-            this.CloseButton.BackgroundImage = global::RegEditor.Properties.Resources.Cancel;
-            this.CloseButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.CloseButton.FlatAppearance.BorderSize = 0;
-            this.CloseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CloseButton.Location = new System.Drawing.Point(196, 248);
-            this.CloseButton.Name = "CloseButton";
-            this.CloseButton.Size = new System.Drawing.Size(60, 58);
-            this.CloseButton.TabIndex = 57;
-            this.CloseButton.UseVisualStyleBackColor = true;
-            this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
+            this.CloseBtn.BackgroundImage = global::RegEditor.Properties.Resources.Cancel;
+            this.CloseBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.CloseBtn.FlatAppearance.BorderSize = 0;
+            this.CloseBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CloseBtn.Location = new System.Drawing.Point(196, 248);
+            this.CloseBtn.Name = "CloseBtn";
+            this.CloseBtn.Size = new System.Drawing.Size(60, 58);
+            this.CloseBtn.TabIndex = 57;
+            this.CloseBtn.UseVisualStyleBackColor = true;
+            this.CloseBtn.Click += new System.EventHandler(this.CloseBtn_Click);
             // 
-            // EditButton
+            // AcceptBtn
             // 
-            this.EditButton.BackgroundImage = global::RegEditor.Properties.Resources.Accept;
-            this.EditButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.EditButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(95)))), ((int)(((byte)(95)))));
-            this.EditButton.FlatAppearance.BorderSize = 0;
-            this.EditButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.EditButton.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.EditButton.ForeColor = global::RegEditor.Theme.Default.DefaultButtonForeColor;
-            this.EditButton.Location = new System.Drawing.Point(137, 248);
-            this.EditButton.Name = "EditButton";
-            this.EditButton.Size = new System.Drawing.Size(60, 58);
-            this.EditButton.TabIndex = 58;
-            this.EditButton.UseVisualStyleBackColor = false;
-            this.EditButton.Click += new System.EventHandler(this.EditButton_Click);
+            this.AcceptBtn.BackgroundImage = global::RegEditor.Properties.Resources.Accept;
+            this.AcceptBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.AcceptBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(95)))), ((int)(((byte)(95)))));
+            this.AcceptBtn.FlatAppearance.BorderSize = 0;
+            this.AcceptBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AcceptBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.AcceptBtn.ForeColor = global::RegEditor.Theme.Default.DefaultButtonForeColor;
+            this.AcceptBtn.Location = new System.Drawing.Point(137, 248);
+            this.AcceptBtn.Name = "AcceptBtn";
+            this.AcceptBtn.Size = new System.Drawing.Size(60, 58);
+            this.AcceptBtn.TabIndex = 58;
+            this.AcceptBtn.UseVisualStyleBackColor = false;
+            this.AcceptBtn.Click += new System.EventHandler(this.AcceptBtn_Click);
             // 
             // IsInheritedComboBox
             // 
@@ -208,31 +208,30 @@
             this.DescrTip.OwnerDraw = true;
             this.DescrTip.Draw += new System.Windows.Forms.DrawToolTipEventHandler(this.DescrTip_Draw);
             // 
-            // PermissionsForm
+            // Permissions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = global::RegEditor.Theme.Default.FormBackColor;
             this.ClientSize = new System.Drawing.Size(396, 313);
-            this.ControlBox = false;
             this.Controls.Add(this.PathRootTbox);
             this.Controls.Add(this.IsInheritedComboBox);
             this.Controls.Add(this.InHeritanceFlagsComboBox);
             this.Controls.Add(this.AccessControlTypeComboBox);
             this.Controls.Add(this.RegistryRightComboBox);
-            this.Controls.Add(this.EditButton);
-            this.Controls.Add(this.CloseButton);
+            this.Controls.Add(this.AcceptBtn);
+            this.Controls.Add(this.CloseBtn);
             this.Controls.Add(this.SelectUserComboBox);
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(465, 423);
             this.MinimizeBox = false;
-            this.Name = "PermissionsForm";
+            this.Name = "Permissions";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Load += new System.EventHandler(this.PermissionsForm_Load);
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PermissionsForm_MouseDown);
+            this.Load += new System.EventHandler(this.Permissions_Load);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Permissions_MouseDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -240,8 +239,8 @@
 
         #endregion
         private MetroFramework.Controls.MetroComboBox SelectUserComboBox;
-        private System.Windows.Forms.Button CloseButton;
-        private System.Windows.Forms.Button EditButton;
+        private System.Windows.Forms.Button CloseBtn;
+        private System.Windows.Forms.Button AcceptBtn;
         private MetroFramework.Controls.MetroComboBox IsInheritedComboBox;
         private MetroFramework.Controls.MetroComboBox InHeritanceFlagsComboBox;
         private MetroFramework.Controls.MetroComboBox AccessControlTypeComboBox;

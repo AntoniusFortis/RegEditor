@@ -9,6 +9,10 @@ namespace RegEditor
 
         private void AboutProduct_Click(object sender, EventArgs e) => Close();
 
-        private void AboutProduct_Load(object sender, EventArgs e) => VersionLabel.Text = Application.ProductVersion;
+        private void AboutProduct_Load(object sender, EventArgs e)
+        {
+            VersionLabel.Text = Application.ProductVersion;
+            Restyler.WindowsReStyle(Handle);
+        }
     }
 }

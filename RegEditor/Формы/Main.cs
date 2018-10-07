@@ -7,7 +7,6 @@ using System.Windows.Forms;
 /*
 
 
-
     ПЕРЕДЕЛАТЬ ВСЁ
 
     
@@ -45,16 +44,16 @@ namespace RegEditor
         {
             switch (e.KeyCode)
             {
-                case Keys.W: NewKeyBtn.PerformClick(); break;
-                case Keys.E: EditKeyBtn.PerformClick(); break;
-                case Keys.G: RemoveKeyBtn.PerformClick(); break;
-                case Keys.A: NewRootBtn.PerformClick(); break;
-                case Keys.R: RenameRootBtn.PerformClick(); break;
-                case Keys.Delete: RemoveRootBtn.PerformClick(); break;
-                case Keys.H: AboutBtn.PerformClick(); break;
-                case Keys.F:
+                case System.Windows.Forms.Keys.W: NewKeyBtn.PerformClick(); break;
+                case System.Windows.Forms.Keys.E: EditKeyBtn.PerformClick(); break;
+                case System.Windows.Forms.Keys.G: RemoveKeyBtn.PerformClick(); break;
+                case System.Windows.Forms.Keys.A: NewRootBtn.PerformClick(); break;
+                case System.Windows.Forms.Keys.R: RenameRootBtn.PerformClick(); break;
+                case System.Windows.Forms.Keys.Delete: RemoveRootBtn.PerformClick(); break;
+                case System.Windows.Forms.Keys.H: AboutBtn.PerformClick(); break;
+                case System.Windows.Forms.Keys.F:
                     {
-                        if (e.Modifiers == Keys.Control)
+                        if (e.Modifiers == System.Windows.Forms.Keys.Control)
                             SearchBtn.PerformClick();
                         break;
                     }
@@ -86,20 +85,11 @@ namespace RegEditor
             }
         }
 
-        private void CloseAppButton_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
+        private void CloseAppButton_Click(object sender, EventArgs e) => Application.Exit();
 
-        private void KeysView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            EditKeyBtn.PerformClick();
-        }
+        private void KeysView_CellDoubleClick(object sender, DataGridViewCellEventArgs e) => EditKeyBtn.PerformClick();
 
-        private void RootsTreeView_BeforeExpand(object sender, TreeViewCancelEventArgs e)
-        {
-            ShowRoots(e.Node);
-        }
+        private void RootsTreeView_BeforeExpand(object sender, TreeViewCancelEventArgs e) => ShowRoots(e.Node);
 
         private void ShowRoots(TreeNode node)
         {
@@ -298,7 +288,7 @@ namespace RegEditor
             if (CurrentNode.IsEmpty())
                 return;
 
-            var formAccess = new PermissionsForm();
+            var formAccess = new Permissions();
             formAccess.ShowDialog(this);
         }
 
@@ -309,7 +299,7 @@ namespace RegEditor
                 Msg("Перед добавление ключа, вы должны выбрать его!", "Добавление ключа");
                 return;
             }
-            var values = new ValuesForm();
+            var values = new Keys();
             values.ShowDialog(this);
             ViewValues(CurrentNode.Regkey);
         }
@@ -322,7 +312,7 @@ namespace RegEditor
                 return;
             }
 
-            var values = new ValuesForm
+            var values = new Keys
             (
                 true,
                 KeysView.CurrentRow?.Cells[1].Value,
