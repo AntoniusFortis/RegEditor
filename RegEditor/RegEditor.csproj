@@ -160,12 +160,6 @@
     <Compile Include="Формы\Roots.Designer.cs">
       <DependentUpon>Roots.cs</DependentUpon>
     </Compile>
-    <Compile Include="Формы\SearchOptions.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Формы\SearchOptions.Designer.cs">
-      <DependentUpon>SearchOptions.cs</DependentUpon>
-    </Compile>
     <Compile Include="Формы\Keys.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -180,12 +174,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Формы\Search.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Формы\Search.Designer.cs">
-      <DependentUpon>Search.cs</DependentUpon>
-    </Compile>
     <Compile Include="Theme.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -200,9 +188,6 @@
     <EmbeddedResource Include="Формы\Roots.resx">
       <DependentUpon>Roots.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Формы\SearchOptions.resx">
-      <DependentUpon>SearchOptions.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Формы\Keys.resx">
       <DependentUpon>Keys.cs</DependentUpon>
     </EmbeddedResource>
@@ -213,9 +198,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Формы\Search.resx">
-      <DependentUpon>Search.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.manifest">
       <SubType>Designer</SubType>

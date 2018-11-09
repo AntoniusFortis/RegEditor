@@ -337,8 +337,8 @@ namespace RegEditor
 
         private void SearchBtn_Click(object sender, EventArgs e)
         {
-            var searchForm = new SearchForm();
-            searchForm.Show(this);
+            //var searchForm = new SearchForm();
+           //searchForm.Show(this);
         }
 
         private void AboutBtn_Click(object sender, EventArgs e)
