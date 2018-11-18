@@ -30,7 +30,7 @@ namespace RegEditor
             }
             catch (Exception ex)
             {
-                Msg(ex.Message, "Ошибка", MessageBoxIcon.Error, MessageBoxButtons.OK);
+                this.Msg(ex.Message, "Ошибка", icon: MessageBoxIcon.Error);
                 return;
             }
             int indexNewNode = CurrentNode.Node.Nodes.Add(NameTbox.Text, NameTbox.Text).Index;
@@ -42,7 +42,7 @@ namespace RegEditor
         {
             if (NameTbox.Text == "")
             {
-                Msg("Введите новое название для раздела!", "Ошибка", MessageBoxIcon.Error, MessageBoxButtons.OK);
+                this.Msg("Введите новое название для раздела!", "Ошибка", icon: MessageBoxIcon.Error);
                 return;
             }
             RegistryKey key;
@@ -62,18 +62,12 @@ namespace RegEditor
             }
             catch (Exception ex)
             {
-                Msg(ex.Message, "Ошибка", MessageBoxIcon.Error, MessageBoxButtons.OK);
+                this.Msg(ex.Message, "Ошибка", icon: MessageBoxIcon.Error);
                 return;
             }
             CurrentNode.Node.Text = NameTbox.Text;
             CurrentNode.ChangeRegkey(parentSelectedKey.OpenSubKey(CurrentNode.Node.Text));
             Close();
-        }
-
-        private void Msg(string msg, string title, MessageBoxIcon icon = MessageBoxIcon.Question,
-            MessageBoxButtons btns = MessageBoxButtons.YesNo)
-        {
-            MetroFramework.MetroMessageBox.Show(this, msg, title, btns, icon);
         }
 
         private void Roots_KeyDown(object sender, KeyEventArgs e)
@@ -100,8 +94,8 @@ namespace RegEditor
                 return;
 
             NameTbox.Text = CurrentNode.Node.Text;
-            label1.Text = @"Переименовать раздел";
-            label1.Location = new System.Drawing.Point(label1.Location.X - 25, label1.Location.Y);
+            TitleLabel.Text = @"Переименовать раздел";
+            TitleLabel.Location = new System.Drawing.Point(TitleLabel.Location.X - 25, TitleLabel.Location.Y);
         }
     }
 }

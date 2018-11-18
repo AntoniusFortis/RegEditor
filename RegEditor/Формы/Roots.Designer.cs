@@ -31,7 +31,7 @@
             this.NameTbox = new MetroFramework.Controls.MetroTextBox();
             this.CloseBtn = new System.Windows.Forms.Button();
             this.AcceptBtn = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.TitleLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // NameTbox
@@ -76,6 +76,7 @@
             // 
             this.CloseBtn.BackgroundImage = global::RegEditor.Properties.Resources.Cancel;
             this.CloseBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.CloseBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.CloseBtn.FlatAppearance.BorderSize = 0;
             this.CloseBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CloseBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -91,6 +92,7 @@
             // 
             this.AcceptBtn.BackgroundImage = global::RegEditor.Properties.Resources.Accept;
             this.AcceptBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.AcceptBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.AcceptBtn.FlatAppearance.BorderSize = 0;
             this.AcceptBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.AcceptBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -102,31 +104,31 @@
             this.AcceptBtn.Click += new System.EventHandler(this.AcceptBtn_Click);
             this.AcceptBtn.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Roots_KeyDown);
             // 
-            // label1
+            // TitleLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(89, 7);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(132, 21);
-            this.label1.TabIndex = 83;
-            this.label1.Text = "Добавить раздел";
+            this.TitleLabel.AutoSize = true;
+            this.TitleLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.TitleLabel.Location = new System.Drawing.Point(89, 7);
+            this.TitleLabel.Name = "TitleLabel";
+            this.TitleLabel.Size = new System.Drawing.Size(132, 21);
+            this.TitleLabel.TabIndex = 83;
+            this.TitleLabel.Text = "Добавить раздел";
             // 
             // Roots
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = global::RegEditor.Theme.Default.FormBackColor;
-            this.ClientSize = new System.Drawing.Size(305, 120);
+            this.ClientSize = new System.Drawing.Size(305, 102);
             this.Controls.Add(this.CloseBtn);
             this.Controls.Add(this.AcceptBtn);
             this.Controls.Add(this.NameTbox);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.TitleLabel);
             this.Margin = new System.Windows.Forms.Padding(1, 3, 1, 3);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(321, 159);
+            this.MaximumSize = new System.Drawing.Size(321, 141);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(321, 159);
+            this.MinimumSize = new System.Drawing.Size(321, 141);
             this.Name = "Roots";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
@@ -144,6 +146,6 @@
         private MetroFramework.Controls.MetroTextBox NameTbox;
         private new System.Windows.Forms.Button AcceptBtn;
         private System.Windows.Forms.Button CloseBtn;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label TitleLabel;
     }
 }

@@ -30,13 +30,14 @@ namespace RegEditor
                 catch (Win32Exception)
                 {
                 }
-                Application.Exit(); //закрываем текущую копию программы (в любом случае, даже если пользователь отменил запуск с правами администратора в окне UAC)
+                Application.Exit(); //закрываем текущую копию программы (даже если пользователь отменил запуск с правами администратора в окне UAC)
             }
             else //имеем права администратора, значит, стартуем
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 var mutex = new System.Threading.Mutex(true, Application.ProductName, out bool onlyInstance);
+               
                 if (onlyInstance)
                     Application.Run(new MainForm());
                 else

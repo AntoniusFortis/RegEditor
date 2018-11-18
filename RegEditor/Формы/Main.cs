@@ -4,13 +4,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-/*
-
-
-    ПЕРЕДЕЛАТЬ ВСЁ
-
-    
-*/
 namespace RegEditor
 {
     public partial class MainForm : Form
@@ -26,7 +19,6 @@ namespace RegEditor
         private void Main_Form_Load(object sender, EventArgs e)
         {
             Restyler.WindowsReStyle(Handle);
-
             // Отображаем базовые разделы
             LoadMainHkey();
         }
@@ -91,7 +83,7 @@ namespace RegEditor
 
         private void RootsTreeView_BeforeExpand(object sender, TreeViewCancelEventArgs e) => ShowRoots(e.Node);
 
-        private void ShowRoots(TreeNode node)
+        private static void ShowRoots(TreeNode node)
         {
             var curnode = node;
             var currentKey = (RegistryKey)curnode.Tag;
@@ -152,7 +144,7 @@ namespace RegEditor
             }
             catch (Exception ex)
             {
-                Msg(ex.Message, "Удаление раздела", icon: MessageBoxIcon.Error);
+                this.Msg(ex.Message, "Удаление раздела", icon: MessageBoxIcon.Error);
             }
             finally
             {
@@ -172,7 +164,7 @@ namespace RegEditor
             }
             catch (Exception ex)
             {
-                Msg(ex.Message, "Удаление ключа", icon: MessageBoxIcon.Error);
+                this.Msg(ex.Message, "Удаление ключа", icon: MessageBoxIcon.Error);
             }
             finally
             {
@@ -190,7 +182,7 @@ namespace RegEditor
             }
             catch
             {
-                Msg("Нет доступа");
+                this.Msg("Нет доступа");
                 return;
             }
 
@@ -250,107 +242,88 @@ namespace RegEditor
 
         private void NewRootBtn_Click(object sender, EventArgs e)
         {
-            if (CurrentNode.IsEmpty())
-                return;
-
             var roots = new Roots();
-            roots.ShowDialog(this);
-            ShowRoots(CurrentNode.Node);
+            var result = roots.ShowDialog();
+
+            if (result == DialogResult.OK)
+                ShowRoots(CurrentNode.Node);
         }
 
         private void RenameRootBtn_Click(object sender, EventArgs e)
         {
-            if (CurrentNode.IsEmpty())
-            {
-                Msg("Чтобы переименовать раздел, вы должны его выбрать.", "Переименовать раздел");
-                return;
-            }
-
             var roots = new Roots(true);
-            roots.ShowDialog(this);
+            roots.ShowDialog();
         }
 
         private void RemoveRootBtn_Click(object sender, EventArgs e)
         {
-            if (CurrentNode.IsEmpty())
-            {
-                Msg("Чтобы удалить раздел, вы должны его выбрать.", "Переименовать раздел");
-                return;
-            }
-            var result = Msg("Вы уверены, что хотите удалить этот раздел?", "Удалить раздел", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result == DialogResult.No)
-                return;
-            RemoveTree();
+            var result = this.Msg("Вы уверены, что хотите удалить этот раздел?", "Удалить раздел", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+                RemoveTree();
         }
 
         private void ChangeAccessBtn_Click(object sender, EventArgs e)
         {
-            if (CurrentNode.IsEmpty())
-                return;
-
             var formAccess = new Permissions();
-            formAccess.ShowDialog(this);
+            formAccess.ShowDialog();
         }
 
         private void NewKeyBtn_Click(object sender, EventArgs e)
         {
             if (CurrentNode.IsEmpty())
             {
-                Msg("Перед добавление ключа, вы должны выбрать его!", "Добавление ключа");
+                this.Msg("Перед добавление ключа, вы должны выбрать раздел!", "Добавление ключа");
                 return;
             }
-            var values = new Keys();
-            values.ShowDialog(this);
-            ViewValues(CurrentNode.Regkey);
+
+            var values = new Keys(false);
+            var result = values.ShowDialog();
+
+            if (result == DialogResult.OK)
+                ViewValues(CurrentNode.Regkey);
         }
 
         private void EditKeyBtn_Click(object sender, EventArgs e)
         {
-            if (KeysView.CurrentCell == null)
+            if (KeysView.CurrentRow == null)
             {
-                Msg("Перед редактированием ключа, вы должны выбрать его!", "Редактирование параметра");
+                this.Msg("Перед редактированием ключа, вы должны выбрать его!", "Редактирование параметра");
                 return;
             }
 
-            var values = new Keys
-            (
-                true,
-                KeysView.CurrentRow?.Cells[1].Value,
-                KeysView.CurrentRow?.Cells[2].Value,
-                KeysView.CurrentRow?.Cells[3].Value
-            );
-            values.ShowDialog(this);
-            ViewValues(CurrentNode.Regkey);
+            KeysBus.Name = KeysView.CurrentRow.Cells[1].Value.ToString();
+            KeysBus.Type = KeysView.CurrentRow.Cells[2].Value.ToString();
+            KeysBus.Value = KeysView.CurrentRow.Cells[3].Value.ToString();
+
+            var values = new Keys(true);
+            var result = values.ShowDialog();
+
+            if (result == DialogResult.OK)
+                ViewValues(CurrentNode.Regkey);
         }
 
         private void RemoveKeyBtn_Click(object sender, EventArgs e)
         {
             if (KeysView.CurrentRow == null)
             {
-                Msg("Перед удалением ключа, вы должны выбрать его!", "Редактирование ключа");
+                this.Msg("Перед удалением ключа, вы должны выбрать его!", "Редактирование ключа");
                 return;
             }
-            var result = Msg("Вы уверены, что хотите удалить этот ключ?", "Удалить ключ", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result == DialogResult.No) return;
-            RemoveValue();
+
+            var result = this.Msg("Вы уверены, что хотите удалить этот ключ?", "Удалить ключ", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+                RemoveValue();
         }
 
         private void SearchBtn_Click(object sender, EventArgs e)
         {
-            //var searchForm = new SearchForm();
-           //searchForm.Show(this);
+
         }
 
         private void AboutBtn_Click(object sender, EventArgs e)
         {
             var aboutProduct = new AboutProduct();
             aboutProduct.ShowDialog();
-        }
-
-        private DialogResult Msg(string msg, string title = "", MessageBoxButtons btns = MessageBoxButtons.OK, 
-            MessageBoxIcon icon = MessageBoxIcon.Information)
-        {
-            return MetroFramework.MetroMessageBox.Show(this, msg, title, btns, icon);
         }
     } 
 } 

@@ -188,8 +188,6 @@
             // 
             // PathRootTbox
             // 
-            this.PathRootTbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.PathRootTbox.BackColor = global::RegEditor.Theme.Default.TextBoxBackColor;
             this.PathRootTbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PathRootTbox.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -213,7 +211,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = global::RegEditor.Theme.Default.FormBackColor;
-            this.ClientSize = new System.Drawing.Size(396, 313);
+            this.ClientSize = new System.Drawing.Size(396, 298);
             this.Controls.Add(this.PathRootTbox);
             this.Controls.Add(this.IsInheritedComboBox);
             this.Controls.Add(this.InHeritanceFlagsComboBox);

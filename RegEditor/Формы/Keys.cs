@@ -1,62 +1,46 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Security.AccessControl;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace RegEditor
 {
     public partial class Keys : Form
     {
-        private readonly object _variableName;
-        private readonly object _cell2;
-        private readonly object _cell3;
         private readonly bool _editMode;
 
-        public Keys(bool editMode = false, object cell1 = null, object cell2 = null, object cell3 = null)
+        public Keys(bool editmode)
         {
-            _variableName = cell1;
-            _cell2 = cell2;
-            _cell3 = cell3;
-            _editMode = editMode;
+            _editMode = editmode;
             InitializeComponent();
         }
 
         private void EditMode_Load()
         {
-            Restyler.WindowsReStyle(Handle);
+            TitleLable.Text = @"Изменить ключ";
+            TitleLable.Location = new System.Drawing.Point(TitleLable.Location.X - 6, TitleLable.Location.Y);
 
-            label1.Text = @"Изменить ключ";
-            label1.Location = new System.Drawing.Point(label1.Location.X - 6, label1.Location.Y);
-            NameTbox.Text = (string)_variableName ?? "";
-            s.Text = (string)_cell3 ?? "";
-            foreach (object item in TypeComboBox.Items)
+            NameTbox.Text = KeysBus.Name;
+            ValueTBox.Text = KeysBus.Value;
+
+            foreach (string item in TypeComboBox.Items)
             {
-                if (item.ToString() == _cell2.ToString())
-                {
-                    TypeComboBox.Text = item.ToString();
-                }
+                if (item != KeysBus.Type) continue;
+                TypeComboBox.Text = item;
+                break;
             }
+
             switch (TypeComboBox.SelectedIndex)
             {
                 case 0:
                     {
-                        string hexValues = s.Text;
-                        string[] hexValuesSplit = hexValues.Split(' ');
-                        s.Text = string.Empty;
-                        foreach (string hex in hexValuesSplit)
-                        {
-                            if (hex == string.Empty)
-                                break;
-                            int value = Convert.ToInt32(hex, 16);
-                            string stringValue = char.ConvertFromUtf32(value);
-                            s.Text += stringValue;
-                        }
+                        ValueTBox.Text = KeysBus.Value;
                         break;
                     }
                 case 5:
                     {
-                        if (s.Text != string.Empty)
-                            s.Text = s.Text.Replace(" ", "\\");
+                        if (ValueTBox.Text != string.Empty)
+                            ValueTBox.Text = ValueTBox.Text.Replace(" ", "\\");
                         break;
                     }
             }
@@ -65,68 +49,81 @@ namespace RegEditor
         private void EditSection()
         {
             var selectedHive = (RegistryKey) CurrentNode.Node.Parent.Tag;
-            if (_variableName.ToString() != NameTbox.Text)
-                selectedHive.OpenSubKey(
-                    CurrentNode.Node.Text, 
-                    RegistryKeyPermissionCheck.ReadWriteSubTree, 
-                    RegistryRights.FullControl
-                    )?.DeleteValue(_variableName.ToString());
-            DoWork();
+            if (KeysBus.Name != NameTbox.Text)
+                selectedHive.OpenSubKey(CurrentNode.Node.Text, true)?.DeleteValue(KeysBus.Name);
+            ProcessAction();
         }
 
-        private void DoWork()
+        private void ProcessAction()
         {
             if (TypeComboBox.Text == "") return;
-            var selectedHive = (RegistryKey)CurrentNode.Node.Parent.Tag;
+            var selectedHive = (RegistryKey) CurrentNode.Node.Parent.Tag;
+            if (selectedHive == null)
+                return;
+
+            RegistryValueKind kind;
+            object value;
+
+            switch (TypeComboBox.SelectedIndex)
+            {
+                case 0: // Binary
+                {
+                    string[] hexValuesSplit = ValueTBox.Text.Split(" ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                    byte[] array = new byte[hexValuesSplit.Length];
+                    for (var index = 0; index < hexValuesSplit.Length; ++index)
+                    {
+                        var val = hexValuesSplit[index];
+                        array[index] = byte.Parse(val, NumberStyles.AllowHexSpecifier);
+                    }
+
+                    kind = RegistryValueKind.Binary;
+                    value = array;
+                    break;
+                }
+                case 1: // Dword
+                {
+                    kind = RegistryValueKind.DWord;
+                    value = Convert.ToInt32(ValueTBox.Text, 16);
+                    break;
+                }
+                case 2: // Qword
+                {
+                    kind = RegistryValueKind.QWord;
+                    value = Convert.ToInt64(ValueTBox.Text, 16);
+                    break;
+                }
+                case 3: // String
+                {
+                    kind = RegistryValueKind.String;
+                    value = ValueTBox.Text;
+                    break;
+                }
+                case 4: // Expand string
+                {
+                    kind = RegistryValueKind.ExpandString;
+                    value = ValueTBox.Text;
+                    break;
+                }
+                case 5: // Multi string
+                {
+                    kind = RegistryValueKind.MultiString;
+                    value = ValueTBox.Text.Split('\\');
+                    break;
+                }
+                default:
+                {
+                    return;
+                }
+            }
+
             try
             {
-                switch (TypeComboBox.SelectedIndex)
-                {
-                    case 0: // Binary
-                        {
-                            byte[] array = System.Text.Encoding.UTF8.GetBytes(s.Text);
-                            selectedHive = selectedHive.OpenSubKey(CurrentNode.Node.Text, true);
-                            selectedHive?.SetValue(NameTbox.Text, array, RegistryValueKind.Binary);
-                            break;
-                        }
-                    case 1: // Dword
-                        {
-                            int value = Convert.ToInt32(s.Text, 16);
-                            selectedHive = selectedHive.OpenSubKey(CurrentNode.Node.Text, true);
-                            selectedHive?.SetValue(NameTbox.Text, value, RegistryValueKind.DWord);
-                            break;
-                        }
-                    case 2: // Qword
-                        {
-                            long value = Convert.ToInt64(s.Text, 16);
-                            selectedHive = selectedHive.OpenSubKey(CurrentNode.Node.Text, true);
-                            selectedHive?.SetValue(NameTbox.Text, value, RegistryValueKind.QWord);
-                            break;
-                        }
-                    case 3: // String
-                        {
-                            selectedHive = selectedHive.OpenSubKey(CurrentNode.Node.Text, true);
-                            selectedHive?.SetValue(NameTbox.Text, s.Text, RegistryValueKind.String);
-                            break;
-                        }
-                    case 4: // Expand string
-                        {
-                            selectedHive = selectedHive.OpenSubKey(CurrentNode.Node.Text, true);
-                            selectedHive?.SetValue(NameTbox.Text, s.Text, RegistryValueKind.ExpandString);
-                            break;
-                        }
-                    case 5:
-                        {
-                            string[] array = s.Text.Split('\\');
-                            selectedHive = selectedHive.OpenSubKey(CurrentNode.Node.Text, RegistryKeyPermissionCheck.ReadWriteSubTree, RegistryRights.FullControl);
-                            selectedHive?.SetValue(NameTbox.Text, array, RegistryValueKind.MultiString);
-                        }
-                        break;
-                }
+                selectedHive = selectedHive.OpenSubKey(CurrentNode.Node.Text, true);
+                selectedHive?.SetValue(NameTbox.Text, value, kind);
             }
             catch
             {
-                MetroFramework.MetroMessageBox.Show(this, "Введите новое название для раздела!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Msg("Недопустимый ключ!", "Ошибка", icon: MessageBoxIcon.Error);
             }
         }
 
@@ -135,7 +132,7 @@ namespace RegEditor
             if (_editMode)
                 EditSection();
             else
-                DoWork();
+                ProcessAction();
             Close();
         }
 
@@ -151,6 +148,8 @@ namespace RegEditor
 
         private void Keys_Load(object sender, EventArgs e)
         {
+            Restyler.WindowsReStyle(Handle);
+
             if (_editMode)
                 EditMode_Load();
         }

@@ -14,11 +14,11 @@ namespace RegEditor
 
         private void GetAccess()
         {
-            var listusers = new List<string>();
             var keyAccessControl = CurrentNode.Regkey.GetAccessControl();
 
             var rules = keyAccessControl.GetAccessRules(true, true, typeof(NTAccount));
 
+            var listusers = new List<string>(rules.Count);
             foreach (AuthorizationRule rule in rules)
             {
                 listusers.Add(rule.IdentityReference.Value);
@@ -47,8 +47,7 @@ namespace RegEditor
                 RegistryRightComboBox.SelectedItem = GetDescriptionForRights(rule.RegistryRights);
                 var inHeritanceFlags = (int)rule.InheritanceFlags;
 
-                if (inHeritanceFlags < 3)
-                    InHeritanceFlagsComboBox.SelectedIndex = inHeritanceFlags;
+                InHeritanceFlagsComboBox.SelectedIndex = inHeritanceFlags - 1;
 
                 IsInheritedComboBox.SelectedIndex = rule.IsInherited ? 0 : 1;
                 break;
@@ -118,6 +117,7 @@ namespace RegEditor
                 RegistryRights.QueryValues, RegistryRights.ReadKey, RegistryRights.ReadPermissions,
                 RegistryRights.SetValue, RegistryRights.TakeOwnership, RegistryRights.WriteKey
             };
+
             InheritanceFlags[] inheritanceFlags =
             {
                 InheritanceFlags.None,
@@ -138,15 +138,17 @@ namespace RegEditor
             var key = (RegistryKey)CurrentNode.Node.Parent.Tag;
             key = key.OpenSubKey(CurrentNode.Node.Text, true);
 
-            var newAccessRule = new RegistryAccessRule(SelectUserComboBox.Text,
-                arrayRights[RegistryRightComboBox.SelectedIndex],
-                inheritanceFlags[InHeritanceFlagsComboBox.SelectedIndex],
-                propagationFlag[IsInheritedComboBox.SelectedIndex],
-                accessControlType[AccessControlTypeComboBox.SelectedIndex]);
+            var rights = arrayRights[RegistryRightComboBox.SelectedIndex];
+            var inheritance = inheritanceFlags[InHeritanceFlagsComboBox.SelectedIndex];
+            var propagation = propagationFlag[IsInheritedComboBox.SelectedIndex];
+            var access = accessControlType[AccessControlTypeComboBox.SelectedIndex];
+
+            var newAccessRule = new RegistryAccessRule(SelectUserComboBox.Text, rights, inheritance, propagation, access);
 
             var regSec = new RegistrySecurity();
             regSec.AddAccessRule(newAccessRule);
             key?.SetAccessControl(regSec);
+            //Close();
         }
     }
 }
