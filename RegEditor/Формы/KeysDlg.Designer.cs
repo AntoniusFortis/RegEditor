@@ -1,11 +1,15 @@
-﻿namespace RegEditor
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+using MetroFramework.Controls;
+
+namespace RegEditor
 {
-    partial class Keys
+    partial class KeysDlg
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -184,7 +188,7 @@
             this.TitleLable.TabIndex = 82;
             this.TitleLable.Text = "Новый ключ";
             // 
-            // Keys
+            // KeysDlg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -199,7 +203,7 @@
             this.Margin = new System.Windows.Forms.Padding(1, 3, 1, 3);
             this.MaximumSize = new System.Drawing.Size(306, 243);
             this.MinimumSize = new System.Drawing.Size(306, 243);
-            this.Name = "Keys";
+            this.Name = "KeysDlg";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
@@ -213,11 +217,11 @@
         }
 
         #endregion
-        private MetroFramework.Controls.MetroTextBox NameTbox;
-        private MetroFramework.Controls.MetroTextBox ValueTBox;
-        private MetroFramework.Controls.MetroComboBox TypeComboBox;
-        private System.Windows.Forms.Button AcceptBtn;
-        private System.Windows.Forms.Button CloseBtn;
-        private System.Windows.Forms.Label TitleLable;
+        private MetroTextBox NameTbox;
+        private MetroTextBox ValueTBox;
+        private MetroComboBox TypeComboBox;
+        private Button AcceptBtn;
+        private Button CloseBtn;
+        private Label TitleLable;
     }
 }

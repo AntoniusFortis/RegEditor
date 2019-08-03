@@ -1,15 +1,16 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
+using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
+using Microsoft.Win32;
 
 namespace RegEditor
 {
-    public partial class Keys : Form
+    public partial class KeysDlg : Form
     {
         private readonly bool _editMode;
 
-        public Keys(bool editmode)
+        public KeysDlg(bool editmode)
         {
             _editMode = editmode;
             InitializeComponent();
@@ -18,7 +19,7 @@ namespace RegEditor
         private void EditMode_Load()
         {
             TitleLable.Text = @"Изменить ключ";
-            TitleLable.Location = new System.Drawing.Point(TitleLable.Location.X - 6, TitleLable.Location.Y);
+            TitleLable.Location = new Point(TitleLable.Location.X - 6, TitleLable.Location.Y);
 
             NameTbox.Text = KeysBus.Name;
             ValueTBox.Text = KeysBus.Value;
@@ -138,13 +139,13 @@ namespace RegEditor
 
         private void Keys_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == System.Windows.Forms.Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
                 AcceptBtn.PerformClick();
-            if (e.KeyCode == System.Windows.Forms.Keys.Escape)
+            if (e.KeyCode == Keys.Escape)
                 CloseBtn.PerformClick();
         }
 
-        private void Keys_MouseDown(object sender, MouseEventArgs e) => Restyler.MouseCapture(Handle);
+        private void Keys_MouseDown(object sender, MouseEventArgs e) => this.MouseCapture();
 
         private void Keys_Load(object sender, EventArgs e)
         {

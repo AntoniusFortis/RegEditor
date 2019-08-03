@@ -1,6 +1,6 @@
 ﻿namespace RegEditor
 {
-    static class KeysBus
+    internal static class KeysBus
     {
         public static string Name;
         public static string Type;

@@ -96,7 +96,7 @@ namespace RegEditor
             return rightsInfo;
         }
 
-        private void Permissions_MouseDown(object sender, MouseEventArgs e) => Restyler.MouseCapture(Handle);
+        private void Permissions_MouseDown(object sender, MouseEventArgs e) => this.MouseCapture();
 
         private void Permissions_Load(object sender, EventArgs e)
         {

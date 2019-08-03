@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RegEditor</RootNamespace>
     <AssemblyName>Редактор реестра</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
@@ -141,6 +141,7 @@
     </Compile>
     <Compile Include="Классы\Bus.cs" />
     <Compile Include="Классы\Expansions.cs" />
+    <Compile Include="Классы\RegistryHelpers.cs" />
     <Compile Include="Классы\Restyler.cs" />
     <Compile Include="Формы\AboutProduct.cs">
       <SubType>Form</SubType>
@@ -160,11 +161,11 @@
     <Compile Include="Формы\Roots.Designer.cs">
       <DependentUpon>Roots.cs</DependentUpon>
     </Compile>
-    <Compile Include="Формы\Keys.cs">
+    <Compile Include="Формы\KeysDlg.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Формы\Keys.Designer.cs">
-      <DependentUpon>Keys.cs</DependentUpon>
+    <Compile Include="Формы\KeysDlg.Designer.cs">
+      <DependentUpon>KeysDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="Формы\Main.cs">
       <SubType>Form</SubType>
@@ -188,8 +189,8 @@
     <EmbeddedResource Include="Формы\Roots.resx">
       <DependentUpon>Roots.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Формы\Keys.resx">
-      <DependentUpon>Keys.cs</DependentUpon>
+    <EmbeddedResource Include="Формы\KeysDlg.resx">
+      <DependentUpon>KeysDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Формы\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>

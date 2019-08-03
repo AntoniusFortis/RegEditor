@@ -1,11 +1,15 @@
-﻿namespace RegEditor
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+using MetroFramework.Controls;
+
+namespace RegEditor
 {
     partial class Permissions
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -236,14 +240,14 @@
         }
 
         #endregion
-        private MetroFramework.Controls.MetroComboBox SelectUserComboBox;
-        private System.Windows.Forms.Button CloseBtn;
-        private System.Windows.Forms.Button AcceptBtn;
-        private MetroFramework.Controls.MetroComboBox IsInheritedComboBox;
-        private MetroFramework.Controls.MetroComboBox InHeritanceFlagsComboBox;
-        private MetroFramework.Controls.MetroComboBox AccessControlTypeComboBox;
-        private MetroFramework.Controls.MetroComboBox RegistryRightComboBox;
-        private System.Windows.Forms.TextBox PathRootTbox;
-        private System.Windows.Forms.ToolTip DescrTip;
+        private MetroComboBox SelectUserComboBox;
+        private Button CloseBtn;
+        private Button AcceptBtn;
+        private MetroComboBox IsInheritedComboBox;
+        private MetroComboBox InHeritanceFlagsComboBox;
+        private MetroComboBox AccessControlTypeComboBox;
+        private MetroComboBox RegistryRightComboBox;
+        private TextBox PathRootTbox;
+        private ToolTip DescrTip;
     }
 }

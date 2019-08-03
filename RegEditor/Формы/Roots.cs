@@ -1,32 +1,33 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
+using Microsoft.Win32;
+
 namespace RegEditor
 {
     public partial class Roots : Form
     {
         private readonly bool _renameMode;
 
-        public Roots(bool renameMode = false)
+        public Roots(bool renameMode)
         {
             _renameMode = renameMode;
             InitializeComponent();
             Restyler.WindowsReStyle(Handle);
         }
 
-        private void Roots_MouseDown(object sender, MouseEventArgs e) => Restyler.MouseCapture(Handle);
+        private void Roots_MouseDown(object sender, MouseEventArgs e) => this.MouseCapture();
 
         private void AddRoot()
         {
-            var key = CurrentNode.Regkey;
+            var path = CurrentNode.Node.FullPath;
+            var hive = (RegistryHive)CurrentNode.Node.Tag;
             try
             {
-                if (CurrentNode.Node.Parent != null)
+                using (var key = RegistryHelpers.OpenKey(path, hive, RegistryKeyPermissionCheck.ReadWriteSubTree))
                 {
-                    key = (RegistryKey)CurrentNode.Node.Parent.Tag;
-                    key = key.OpenSubKey(CurrentNode.Node.Text, true);
+                    key?.CreateSubKey(NameTbox.Text, RegistryKeyPermissionCheck.ReadSubTree);
                 }
-                key = key?.CreateSubKey(NameTbox.Text);
             }
             catch (Exception ex)
             {
@@ -34,7 +35,7 @@ namespace RegEditor
                 return;
             }
             int indexNewNode = CurrentNode.Node.Nodes.Add(NameTbox.Text, NameTbox.Text).Index;
-            CurrentNode.Node.Nodes[indexNewNode].Tag = key;
+            CurrentNode.Node.Nodes[indexNewNode].Tag = CurrentNode.Node.Tag;
             Close();
         }
 
@@ -72,9 +73,9 @@ namespace RegEditor
 
         private void Roots_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == System.Windows.Forms.Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
                 AcceptBtn.PerformClick();
-            if (e.KeyCode == System.Windows.Forms.Keys.Escape)
+            if (e.KeyCode == Keys.Escape)
                 CloseBtn.PerformClick();
         }
 
@@ -95,7 +96,7 @@ namespace RegEditor
 
             NameTbox.Text = CurrentNode.Node.Text;
             TitleLabel.Text = @"Переименовать раздел";
-            TitleLabel.Location = new System.Drawing.Point(TitleLabel.Location.X - 25, TitleLabel.Location.Y);
+            TitleLabel.Location = new Point(TitleLabel.Location.X - 25, TitleLabel.Location.Y);
         }
     }
 }

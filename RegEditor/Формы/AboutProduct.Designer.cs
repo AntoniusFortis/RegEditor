@@ -1,11 +1,14 @@
-﻿namespace RegEditor
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace RegEditor
 {
     partial class AboutProduct
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -94,8 +97,8 @@
         }
 
         #endregion
-        private System.Windows.Forms.Label AuthorLabel;
-        private System.Windows.Forms.Label NameAppLabel;
-        private System.Windows.Forms.Label VersionLabel;
+        private Label AuthorLabel;
+        private Label NameAppLabel;
+        private Label VersionLabel;
     }
 }

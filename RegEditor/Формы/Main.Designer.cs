@@ -1,11 +1,14 @@
-﻿namespace RegEditor
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace RegEditor
 {
     partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -28,27 +31,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode31 = new System.Windows.Forms.TreeNode("");
-            System.Windows.Forms.TreeNode treeNode32 = new System.Windows.Forms.TreeNode("HKEY_CLASSES_ROOT", new System.Windows.Forms.TreeNode[] {
-            treeNode31});
-            System.Windows.Forms.TreeNode treeNode33 = new System.Windows.Forms.TreeNode("");
-            System.Windows.Forms.TreeNode treeNode34 = new System.Windows.Forms.TreeNode("HKEY_CURRENT_CONFIG", new System.Windows.Forms.TreeNode[] {
-            treeNode33});
-            System.Windows.Forms.TreeNode treeNode35 = new System.Windows.Forms.TreeNode("");
-            System.Windows.Forms.TreeNode treeNode36 = new System.Windows.Forms.TreeNode("HKEY_CURRENT_USER", new System.Windows.Forms.TreeNode[] {
-            treeNode35});
-            System.Windows.Forms.TreeNode treeNode37 = new System.Windows.Forms.TreeNode("");
-            System.Windows.Forms.TreeNode treeNode38 = new System.Windows.Forms.TreeNode("HKEY_LOCAL_MACHINE", new System.Windows.Forms.TreeNode[] {
-            treeNode37});
-            System.Windows.Forms.TreeNode treeNode39 = new System.Windows.Forms.TreeNode("");
-            System.Windows.Forms.TreeNode treeNode40 = new System.Windows.Forms.TreeNode("HKEY_USERS", new System.Windows.Forms.TreeNode[] {
-            treeNode39});
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("HKEY_CLASSES_ROOT", new System.Windows.Forms.TreeNode[] {
+            treeNode1});
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("HKEY_CURRENT_CONFIG", new System.Windows.Forms.TreeNode[] {
+            treeNode3});
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("HKEY_CURRENT_USER", new System.Windows.Forms.TreeNode[] {
+            treeNode5});
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("HKEY_LOCAL_MACHINE", new System.Windows.Forms.TreeNode[] {
+            treeNode7});
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("");
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("HKEY_USERS", new System.Windows.Forms.TreeNode[] {
+            treeNode9});
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.PathRootTbox = new System.Windows.Forms.TextBox();
             this.RootsTreeView = new System.Windows.Forms.TreeView();
@@ -114,38 +117,38 @@
             this.RootsTreeView.ItemHeight = 24;
             this.RootsTreeView.Location = new System.Drawing.Point(10, 33);
             this.RootsTreeView.Name = "RootsTreeView";
-            treeNode31.Name = "";
-            treeNode31.Text = "";
-            treeNode32.Name = "HKEY_CLASSES_ROOT";
-            treeNode32.NodeFont = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            treeNode32.Tag = "";
-            treeNode32.Text = "HKEY_CLASSES_ROOT";
-            treeNode33.Name = "";
-            treeNode33.Text = "";
-            treeNode34.Name = "HKEY_CURRENT_CONFIG";
-            treeNode34.NodeFont = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
-            treeNode34.Text = "HKEY_CURRENT_CONFIG";
-            treeNode35.Name = "";
-            treeNode35.Text = "";
-            treeNode36.Name = "HKEY_CURRENT_USER";
-            treeNode36.NodeFont = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
-            treeNode36.Text = "HKEY_CURRENT_USER";
-            treeNode37.Name = "";
-            treeNode37.Text = "";
-            treeNode38.Name = "HKEY_LOCAL_MACHINE";
-            treeNode38.NodeFont = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
-            treeNode38.Text = "HKEY_LOCAL_MACHINE";
-            treeNode39.Name = "";
-            treeNode39.Text = "";
-            treeNode40.Name = "HKEY_USERS";
-            treeNode40.NodeFont = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
-            treeNode40.Text = "HKEY_USERS";
+            treeNode1.Name = "";
+            treeNode1.Text = "";
+            treeNode2.Name = "HKEY_CLASSES_ROOT";
+            treeNode2.NodeFont = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            treeNode2.Tag = "";
+            treeNode2.Text = "HKEY_CLASSES_ROOT";
+            treeNode3.Name = "";
+            treeNode3.Text = "";
+            treeNode4.Name = "HKEY_CURRENT_CONFIG";
+            treeNode4.NodeFont = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
+            treeNode4.Text = "HKEY_CURRENT_CONFIG";
+            treeNode5.Name = "";
+            treeNode5.Text = "";
+            treeNode6.Name = "HKEY_CURRENT_USER";
+            treeNode6.NodeFont = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
+            treeNode6.Text = "HKEY_CURRENT_USER";
+            treeNode7.Name = "";
+            treeNode7.Text = "";
+            treeNode8.Name = "HKEY_LOCAL_MACHINE";
+            treeNode8.NodeFont = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
+            treeNode8.Text = "HKEY_LOCAL_MACHINE";
+            treeNode9.Name = "";
+            treeNode9.Text = "";
+            treeNode10.Name = "HKEY_USERS";
+            treeNode10.NodeFont = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
+            treeNode10.Text = "HKEY_USERS";
             this.RootsTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode32,
-            treeNode34,
-            treeNode36,
-            treeNode38,
-            treeNode40});
+            treeNode2,
+            treeNode4,
+            treeNode6,
+            treeNode8,
+            treeNode10});
             this.RootsTreeView.Size = new System.Drawing.Size(370, 330);
             this.RootsTreeView.TabIndex = 42;
             this.RootsTreeView.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.RootsTreeView_BeforeExpand);
@@ -158,23 +161,23 @@
             this.KeysView.AllowUserToDeleteRows = false;
             this.KeysView.AllowUserToResizeColumns = false;
             this.KeysView.AllowUserToResizeRows = false;
-            dataGridViewCellStyle19.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(225)))), ((int)(((byte)(225)))));
-            dataGridViewCellStyle19.ForeColor = System.Drawing.Color.Black;
-            this.KeysView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(225)))), ((int)(((byte)(225)))));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            this.KeysView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.KeysView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.KeysView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.KeysView.BackgroundColor = global::RegEditor.Theme.Default.DataGridViewBackColor;
             this.KeysView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(216)))), ((int)(((byte)(216)))));
-            dataGridViewCellStyle20.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle20.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.KeysView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(216)))), ((int)(((byte)(216)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.KeysView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.KeysView.ColumnHeadersHeight = 30;
             this.KeysView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.KeysView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -182,14 +185,14 @@
             this.dataGridViewTextBoxColumn17,
             this.dataGridViewTextBoxColumn18,
             this.dataGridViewTextBoxColumn19});
-            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle22.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(225)))), ((int)(((byte)(225)))));
-            dataGridViewCellStyle22.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle22.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.Color.Navy;
-            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.KeysView.DefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(225)))), ((int)(((byte)(225)))));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Navy;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.KeysView.DefaultCellStyle = dataGridViewCellStyle4;
             this.KeysView.EnableHeadersVisualStyles = false;
             this.KeysView.GridColor = global::RegEditor.Theme.Default.datagrview_rgb_grid;
             this.KeysView.Location = new System.Drawing.Point(383, 33);
@@ -198,19 +201,19 @@
             this.KeysView.Name = "KeysView";
             this.KeysView.ReadOnly = true;
             this.KeysView.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle23.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle23.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle23.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
-            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.KeysView.RowHeadersDefaultCellStyle = dataGridViewCellStyle23;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.KeysView.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.KeysView.RowHeadersVisible = false;
             this.KeysView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle24.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle24.ForeColor = System.Drawing.Color.Black;
-            this.KeysView.RowsDefaultCellStyle = dataGridViewCellStyle24;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
+            this.KeysView.RowsDefaultCellStyle = dataGridViewCellStyle6;
             this.KeysView.ShowCellErrors = false;
             this.KeysView.ShowRowErrors = false;
             this.KeysView.Size = new System.Drawing.Size(424, 350);
@@ -240,8 +243,8 @@
             // 
             // dataGridViewTextBoxColumn18
             // 
-            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridViewTextBoxColumn18.DefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewTextBoxColumn18.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewTextBoxColumn18.FillWeight = 63.95939F;
             this.dataGridViewTextBoxColumn18.HeaderText = "Тип";
             this.dataGridViewTextBoxColumn18.Name = "dataGridViewTextBoxColumn18";
@@ -375,7 +378,7 @@
             this.AboutBtn});
             this.MenuStrip.Location = new System.Drawing.Point(2, 4);
             this.MenuStrip.Name = "MenuStrip";
-            this.MenuStrip.Size = new System.Drawing.Size(481, 25);
+            this.MenuStrip.Size = new System.Drawing.Size(361, 25);
             this.MenuStrip.TabIndex = 40;
             this.MenuStrip.Text = "menuStrip1";
             // 
@@ -526,38 +529,38 @@
         }
 
         #endregion
-        private System.Windows.Forms.TreeView RootsTreeView;
-        private System.Windows.Forms.DataGridView KeysView;
-        private System.Windows.Forms.DataGridViewImageColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn17;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn18;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn19;
-        private System.Windows.Forms.TextBox PathRootTbox;
-        private System.Windows.Forms.ToolStripMenuItem RootBtn;
-        private System.Windows.Forms.ToolStripMenuItem NewRootBtn;
-        private System.Windows.Forms.ToolStripMenuItem RenameRootBtn;
-        private System.Windows.Forms.ToolStripMenuItem RemoveRootBtn;
-        private System.Windows.Forms.ToolStripMenuItem ChangeAccessBtn;
-        private System.Windows.Forms.ToolStripMenuItem KeyButton;
-        private System.Windows.Forms.ToolStripMenuItem NewKeyBtn;
-        private System.Windows.Forms.ToolStripMenuItem EditKeyBtn;
-        private System.Windows.Forms.ToolStripMenuItem RemoveKeyBtn;
-        private System.Windows.Forms.ToolStripMenuItem SearchBtn;
-        private System.Windows.Forms.ToolStripMenuItem AboutBtn;
-        private System.Windows.Forms.MenuStrip MenuStrip;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
-        private System.Windows.Forms.ToolStripMenuItem новыйРазделToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem изменитьРазделToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label CountsSubkeysLabel;
-        private System.Windows.Forms.Label TextCountsSubkeysLabel;
-        private System.Windows.Forms.Button CloseAppButton;
-        private System.Windows.Forms.Button MaximizeAppButton;
-        private System.Windows.Forms.Button MinimizeAppButton;
+        private TreeView RootsTreeView;
+        private DataGridView KeysView;
+        private DataGridViewImageColumn Column2;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn17;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn18;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn19;
+        private TextBox PathRootTbox;
+        private ToolStripMenuItem RootBtn;
+        private ToolStripMenuItem NewRootBtn;
+        private ToolStripMenuItem RenameRootBtn;
+        private ToolStripMenuItem RemoveRootBtn;
+        private ToolStripMenuItem ChangeAccessBtn;
+        private ToolStripMenuItem KeyButton;
+        private ToolStripMenuItem NewKeyBtn;
+        private ToolStripMenuItem EditKeyBtn;
+        private ToolStripMenuItem RemoveKeyBtn;
+        private ToolStripMenuItem SearchBtn;
+        private ToolStripMenuItem AboutBtn;
+        private MenuStrip MenuStrip;
+        private ToolStripMenuItem toolStripMenuItem1;
+        private ToolStripMenuItem toolStripMenuItem2;
+        private ToolStripMenuItem toolStripMenuItem3;
+        private ToolStripMenuItem toolStripMenuItem4;
+        private ToolStripMenuItem новыйРазделToolStripMenuItem;
+        private ToolStripMenuItem изменитьРазделToolStripMenuItem;
+        private ToolStripMenuItem toolStripMenuItem5;
+        private Panel panel1;
+        private Label CountsSubkeysLabel;
+        private Label TextCountsSubkeysLabel;
+        private Button CloseAppButton;
+        private Button MaximizeAppButton;
+        private Button MinimizeAppButton;
     }
 }
 

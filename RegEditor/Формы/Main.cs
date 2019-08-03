@@ -1,8 +1,10 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Microsoft.Win32;
+using KeyEventArgs = System.Windows.Forms.KeyEventArgs;
+using MouseEventArgs = System.Windows.Forms.MouseEventArgs;
 
 namespace RegEditor
 {
@@ -12,49 +14,70 @@ namespace RegEditor
         private bool _windowMaximized;
         private int _tempWidth, _tempHeight;
         private Point _tempLocation;
-        //
 
-        public MainForm() => InitializeComponent();
+        public MainForm()
+        {
+            InitializeComponent();
+        }
 
         private void Main_Form_Load(object sender, EventArgs e)
         {
             Restyler.WindowsReStyle(Handle);
-            // Отображаем базовые разделы
             LoadMainHkey();
         }
 
         private void LoadMainHkey()
         {
-            RootsTreeView.Nodes[0].Tag = Registry.ClassesRoot;
-            RootsTreeView.Nodes[1].Tag = Registry.CurrentConfig;
-            RootsTreeView.Nodes[2].Tag = Registry.CurrentUser;
-            RootsTreeView.Nodes[3].Tag = Registry.LocalMachine;
-            RootsTreeView.Nodes[4].Tag = Registry.Users;
+            RootsTreeView.Nodes[0].Tag = RegistryHive.ClassesRoot;
+            RootsTreeView.Nodes[1].Tag = RegistryHive.CurrentConfig;
+            RootsTreeView.Nodes[2].Tag = RegistryHive.CurrentUser;
+            RootsTreeView.Nodes[3].Tag = RegistryHive.LocalMachine;
+            RootsTreeView.Nodes[4].Tag = RegistryHive.Users;
         }
 
         private void Main_Form_KeysDown(object sender, KeyEventArgs e)
         {
+            ToolStripMenuItem button = null;
             switch (e.KeyCode)
             {
-                case System.Windows.Forms.Keys.W: NewKeyBtn.PerformClick(); break;
-                case System.Windows.Forms.Keys.E: EditKeyBtn.PerformClick(); break;
-                case System.Windows.Forms.Keys.G: RemoveKeyBtn.PerformClick(); break;
-                case System.Windows.Forms.Keys.A: NewRootBtn.PerformClick(); break;
-                case System.Windows.Forms.Keys.R: RenameRootBtn.PerformClick(); break;
-                case System.Windows.Forms.Keys.Delete: RemoveRootBtn.PerformClick(); break;
-                case System.Windows.Forms.Keys.H: AboutBtn.PerformClick(); break;
-                case System.Windows.Forms.Keys.F:
-                    {
-                        if (e.Modifiers == System.Windows.Forms.Keys.Control)
-                            SearchBtn.PerformClick();
-                        break;
-                    }
+                case Keys.W:
+                    button = NewKeyBtn;
+                    break;
+                case Keys.E:
+                    button = EditKeyBtn;
+                    break;
+                case Keys.G:
+                    button = RemoveKeyBtn;
+                    break;
+                case Keys.A:
+                    button = NewRootBtn;
+                    break;
+                case Keys.R:
+                    button = RenameRootBtn;
+                    break;
+                case Keys.Delete:
+                    button = RemoveRootBtn;
+                    break;
+                case Keys.H:
+                    button = AboutBtn;
+                    break;
+                case Keys.F:
+                    if (e.Modifiers == Keys.Control)
+                        button = SearchBtn;
+                    break;
             }
+            button?.PerformClick();
         }
 
-        private void Main_Form_MouseDown(object sender, MouseEventArgs e) => Restyler.MouseCapture(Handle);
+        private void Main_Form_MouseDown(object sender, MouseEventArgs e)
+        {
+            this.MouseCapture();
+        }
 
-        private void MinimizeAppButton_Click(object sender, EventArgs e) => WindowState = FormWindowState.Minimized;
+        private void MinimizeAppButton_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
+        }
 
         private void MaximizeAppButton_Click(object sender, EventArgs e)
         {
@@ -81,38 +104,11 @@ namespace RegEditor
 
         private void KeysView_CellDoubleClick(object sender, DataGridViewCellEventArgs e) => EditKeyBtn.PerformClick();
 
-        private void RootsTreeView_BeforeExpand(object sender, TreeViewCancelEventArgs e) => ShowRoots(e.Node);
-
-        private static void ShowRoots(TreeNode node)
+        private void RootsTreeView_BeforeExpand(object sender, TreeViewCancelEventArgs e)
         {
-            var curnode = node;
-            var currentKey = (RegistryKey)curnode.Tag;
-
-            curnode.Nodes.Clear();
-
-            string[] subkeys = currentKey.GetSubKeyNames();
-
-            foreach (var subkey in subkeys)
-            {
-                var newNode = curnode.Nodes.Add(subkey, subkey);
-                RegistryKey key = null;
-                try
-                {
-                    key = currentKey.OpenSubKey(subkey);
-                }
-                catch (Exception)
-                {
-                    // ignored
-                }
-
-                if (key != null)
-                {
-                    newNode.Tag = key;
-                    if (key.SubKeyCount > 0 && newNode.Nodes.Count == 0)
-                        newNode.Nodes.Add("");
-                }
-            }
+            RegistryHelpers.AddSubkeys(e.Node);
         }
+
 
         private void RootsTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
@@ -125,22 +121,22 @@ namespace RegEditor
 
         private void RemoveTree()
         {
-            RegistryKey key;
-            string keyPath = "";
-            if (CurrentNode.Node.Parent.Parent != null)
-            {
-                key = (RegistryKey)CurrentNode.Node.Parent.Parent.Tag;
-                keyPath = CurrentNode.Node.Parent.Text;
-            }
-            else
-            {
-                key = (RegistryKey)CurrentNode.Node.Parent.Tag;
-            }
+            var hive = (RegistryHive) CurrentNode.Node.Tag;
+            var target = CurrentNode.Node.Text;
+
+            if (CurrentNode.Node.Parent == null)
+                return;
+
+            var targetNode = CurrentNode.Node;
+
+            CurrentNode.SetNode(CurrentNode.Node.Parent);
             try
             {
-                if (CurrentNode.Node.Parent.Parent != null)
-                    key = key.OpenSubKey(keyPath, true);
-                key?.DeleteSubKeyTree(CurrentNode.Node.Text);
+                using (var key = RegistryHelpers.OpenKey(CurrentNode.Node.FullPath, hive,
+                    RegistryKeyPermissionCheck.ReadWriteSubTree))
+                {
+                    key?.DeleteSubKeyTree(target);
+                }
             }
             catch (Exception ex)
             {
@@ -148,8 +144,7 @@ namespace RegEditor
             }
             finally
             {
-                var tr = CurrentNode.Node;
-                tr.Remove();
+                targetNode.Remove();
             }
         }
 
@@ -186,67 +181,27 @@ namespace RegEditor
                 return;
             }
 
-            foreach (var value in arrayValueNames)
+            var collection = new DataGridViewRow[arrayValueNames.Length];
+            for (var index = 0; index < arrayValueNames.Length; index++)
             {
+                var value = arrayValueNames[index];
                 var keyKind = key.GetValueKind(value);
-                object keyValue = ""; // Переменная для хранения значения ключа
-                Bitmap keyKindPicture; // Переменная для хранения пикчи типа ключа
-                switch (keyKind)
-                {
-                    case RegistryValueKind.Binary:
-                    {
-                        keyKindPicture = Properties.Resources.KeyBinary;
-                        var array = (byte[]) key.GetValue(value);
-                        keyValue = array.Aggregate(keyValue, (current, t) => current + $"{t:X2} ");
-                        break;
-                    }
-                    case RegistryValueKind.MultiString:
-                    {
-                        keyKindPicture = Properties.Resources.KeyMultiString;
-                        var array = (string[]) key.GetValue(value);
-                        keyValue = array.Aggregate(keyValue, (current, t) => current + $"{t} ");
-                        break;
-                    }
-                    case RegistryValueKind.DWord:
-                    {
-                        keyKindPicture = Properties.Resources.KeyDword;
-                        keyValue = $"{key.GetValue(value):X}";
-                        break;
-                    }
-                    case RegistryValueKind.QWord:
-                    {
-                        keyKindPicture = Properties.Resources.KeyQword;
-                        keyValue = $"{key.GetValue(value):X}";
-                        break;
-                    }
-                    case RegistryValueKind.ExpandString:
-                    {
-                        keyKindPicture = Properties.Resources.KeyExpandString;
-                        keyValue = key.GetValue(value, "", RegistryValueOptions.DoNotExpandEnvironmentNames);
-                        break;
-                    }
-                    case RegistryValueKind.String:
-                    {
-                        keyKindPicture = Properties.Resources.KeyString;
-                        keyValue = key.GetValue(value);
-                        break;
-                    }
-                    default:
-                    {
-                        return;
-                    }
-                }
-                KeysView.Rows.Add(keyKindPicture, value, keyKind, keyValue); // Добавляем в список
+
+                RegistryHelpers.ParseKeyValue(keyKind, key, value, out var keyValue, out var icon);
+                collection[index] = new DataGridViewRow();
+                collection[index].CreateCells(KeysView, new object[] {icon, value, keyKind, keyValue});
             }
+
+            KeysView.Rows.AddRange(collection.ToArray());
         }
 
         private void NewRootBtn_Click(object sender, EventArgs e)
         {
-            var roots = new Roots();
+            var roots = new Roots(false);
             var result = roots.ShowDialog();
 
             if (result == DialogResult.OK)
-                ShowRoots(CurrentNode.Node);
+                RegistryHelpers.AddSubkeys(CurrentNode.Node);
         }
 
         private void RenameRootBtn_Click(object sender, EventArgs e)
@@ -255,17 +210,20 @@ namespace RegEditor
             roots.ShowDialog();
         }
 
+
+        private void ChangeAccessBtn_Click(object sender, EventArgs e)
+        {
+            using (var form = new Permissions())
+            {
+                form.ShowDialog();
+            }
+        }
+
         private void RemoveRootBtn_Click(object sender, EventArgs e)
         {
             var result = this.Msg("Вы уверены, что хотите удалить этот раздел?", "Удалить раздел", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
                 RemoveTree();
-        }
-
-        private void ChangeAccessBtn_Click(object sender, EventArgs e)
-        {
-            var formAccess = new Permissions();
-            formAccess.ShowDialog();
         }
 
         private void NewKeyBtn_Click(object sender, EventArgs e)
@@ -276,8 +234,10 @@ namespace RegEditor
                 return;
             }
 
-            var values = new Keys(false);
+            var values = new KeysDlg(false);
             var result = values.ShowDialog();
+
+            values.Dispose();
 
             if (result == DialogResult.OK)
                 ViewValues(CurrentNode.Regkey);
@@ -295,8 +255,11 @@ namespace RegEditor
             KeysBus.Type = KeysView.CurrentRow.Cells[2].Value.ToString();
             KeysBus.Value = KeysView.CurrentRow.Cells[3].Value.ToString();
 
-            var values = new Keys(true);
-            var result = values.ShowDialog();
+            DialogResult result;
+            using (var form = new KeysDlg(true))
+            {
+                result = form.ShowDialog();
+            }
 
             if (result == DialogResult.OK)
                 ViewValues(CurrentNode.Regkey);
@@ -310,7 +273,9 @@ namespace RegEditor
                 return;
             }
 
-            var result = this.Msg("Вы уверены, что хотите удалить этот ключ?", "Удалить ключ", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var result = this.Msg("Вы уверены, что хотите удалить этот ключ?", "Удалить ключ", MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
             if (result == DialogResult.Yes)
                 RemoveValue();
         }
@@ -322,8 +287,10 @@ namespace RegEditor
 
         private void AboutBtn_Click(object sender, EventArgs e)
         {
-            var aboutProduct = new AboutProduct();
-            aboutProduct.ShowDialog();
+            using (var form = new AboutProduct())
+            {
+                form.ShowDialog();
+            }
         }
     } 
 } 
